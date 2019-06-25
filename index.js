@@ -1,6 +1,7 @@
 'use strict';
 
 const http = require('http');
+const threads = require('worker_threads');
 
 const routes = require('./src/router.js')
 
@@ -9,7 +10,7 @@ const port = 3000;
 
 const router = {
     '/': 'Hello World\n',
-    '/create': routes.create(),
+    '/create': threads.parentPort.postMessage({ name: 'started', port }),
     '/read': routes.read(),
     '/update': routes.update(),
     '/delete': routes.myDelete()
